@@ -31,5 +31,7 @@ module be.yildizgames.module.database.hsqldb {
     requires org.jooq;
 
     exports be.yildizgames.module.database.hsqldb;
+
+    provides be.yildizgames.module.database.DatabaseSystemRegisterer with be.yildizgames.module.database.hsqldb.HsqldbSystemRegisterer;
 }
 
