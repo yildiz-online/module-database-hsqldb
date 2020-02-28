@@ -41,7 +41,7 @@ public class HsqldbSystem extends BaseDatabaseSystem {
     private final DriverProvider driver = JDBCDriver::new;
 
     private HsqldbSystem() {
-        super("jdbc:hsqldb:file:${0};allow_empty_batch=true");
+        super("jdbc:hsqldb:file:${0};allow_empty_batch=true;hsqldb.write_delay=false;shutdown=true");
     }
 
     public static void support() {
