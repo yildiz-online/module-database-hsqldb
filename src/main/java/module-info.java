@@ -28,7 +28,6 @@ module be.yildizgames.module.database.hsqldb {
     requires be.yildizgames.module.database;
 
     requires hsqldb;
-    requires org.jooq;
 
     exports be.yildizgames.module.database.hsqldb;
     

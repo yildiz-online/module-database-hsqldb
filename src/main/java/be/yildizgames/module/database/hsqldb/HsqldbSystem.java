@@ -29,7 +29,6 @@ import be.yildizgames.module.database.DatabaseConnectionProviderFactory;
 import be.yildizgames.module.database.DriverProvider;
 import be.yildizgames.module.database.QueryBuilder;
 import org.hsqldb.jdbc.JDBCDriver;
-import org.jooq.SQLDialect;
 
 /**
  * @author Grégory Van den Borre
@@ -49,22 +48,17 @@ public class HsqldbSystem extends BaseDatabaseSystem {
     }
 
     @Override
-    public SQLDialect getDialect() {
-        return SQLDialect.HSQLDB;
-    }
-
-    @Override
-    public String getDriver() {
+    public final String getDriver() {
         return "org.hsqldb.jdbc.JDBCDriver";
     }
 
     @Override
-    public DriverProvider getDriverProvider() {
+    public final DriverProvider getDriverProvider() {
         return this.driver;
     }
 
     @Override
-    public QueryBuilder createBuilder() {
+    public final QueryBuilder createBuilder() {
         return new HsqldbQueryBuilder();
     }
 
