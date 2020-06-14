@@ -25,19 +25,25 @@ package be.yildizgames.module.database.hsqldb;
 
 import be.yildizgames.module.database.QueryBuilder;
 
+import java.util.StringJoiner;
+
  /**
   * @author Grégory Van den Borre
   */
  public class HsqldbQueryBuilder extends QueryBuilder {
 
-    @Override
-    public QueryBuilder selectAllFrom(String table) {
+     public HsqldbQueryBuilder(String table) {
+         super(table);
+     }
+
+     @Override
+    public QueryBuilder selectAllFrom() {
         this.append("SELECT * FROM " + table + " ");
         return this;
     }
 
      @Override
-     public QueryBuilder selectAllFrom(String schema, String table) {
+     public QueryBuilder selectAllFrom(String schema) {
          return this.selectAllFrom("\"" + schema + "\"." + table);
      }
 
@@ -46,4 +52,44 @@ import be.yildizgames.module.database.QueryBuilder;
         this.append("fetch first " + number + " rows only ");
         return this;
     }
-}
+
+     @Override
+     public QueryBuilder merge(String id, String... columns) {
+        this.append("MERGE INTO " + table + " USING (VALUES(" + buildMergeParams(columns.length + 1) + ")) AS vals(" + id + ", " + buildMergeColums(columns) + ") ON (" + table + "." + id + " = vals." + id
+                 + ") WHEN MATCHED THEN UPDATE SET " + buildMergeMatched(columns)
+                 + " WHEN NOT MATCHED THEN INSERT VALUES (vals." + id + "," + buildMergeNotMatched(columns) + ");");
+         return this;
+     }
+
+     private String buildMergeParams(int length) {
+         var joiner = new StringJoiner(",");
+        for(int i = 0; i < length; i++) {
+            joiner.add("?");
+        }
+        return joiner.toString();
+     }
+
+     private String buildMergeColums(String... columns) {
+         var joiner = new StringJoiner(",");
+         for (String column : columns) {
+             joiner.add(column);
+         }
+         return joiner.toString();
+     }
+
+     private String buildMergeMatched(String... columns) {
+         var joiner = new StringJoiner(",");
+         for (String column : columns) {
+             joiner.add(table + "." + column + " = vals." + column);
+         }
+         return joiner.toString();
+    }
+
+     private String buildMergeNotMatched(String... columns) {
+         var joiner = new StringJoiner(",");
+         for (String column : columns) {
+             joiner.add("vals." + column);
+         }
+         return joiner.toString();
+     }
+ }

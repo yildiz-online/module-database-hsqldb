@@ -58,8 +58,8 @@ public class HsqldbSystem extends BaseDatabaseSystem {
     }
 
     @Override
-    public final QueryBuilder createBuilder() {
-        return new HsqldbQueryBuilder();
+    public final QueryBuilder createBuilder(String table) {
+        return new HsqldbQueryBuilder(table);
     }
 
     @Override
