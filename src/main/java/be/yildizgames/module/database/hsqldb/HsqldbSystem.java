@@ -30,6 +30,9 @@ import be.yildizgames.module.database.DriverProvider;
 import be.yildizgames.module.database.QueryBuilder;
 import org.hsqldb.jdbc.JDBCDriver;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * @author Grégory Van den Borre
  */
@@ -44,6 +47,9 @@ public class HsqldbSystem extends BaseDatabaseSystem {
     }
 
     public static void support() {
+        Logger databaseLogger = Logger.getLogger("hsqldb.db");
+        databaseLogger.setUseParentHandlers(false);
+        databaseLogger.setLevel(Level.WARNING);
         DatabaseConnectionProviderFactory.getInstance().addSystem(KEY, new HsqldbSystem());
     }
 
