@@ -51,10 +51,19 @@ public class HsqldbSystem extends BaseDatabaseSystem {
     }
 
     public static void support(String urlParams) {
+        support(KEY, urlParams);
+    }
+
+    /**
+     * Set a custom key to be able to run multiple configuration at the same time when usinb several database
+     * @param key
+     * @param urlParams
+     */
+    public static void support(String key, String urlParams) {
         Logger databaseLogger = Logger.getLogger("hsqldb.db");
         databaseLogger.setUseParentHandlers(false);
         databaseLogger.setLevel(Level.WARNING);
-        DatabaseConnectionProviderFactory.getInstance().addSystem(KEY, new HsqldbSystem(urlParams));
+        DatabaseConnectionProviderFactory.getInstance().addSystem(key, new HsqldbSystem(urlParams));
     }
 
     @Override
