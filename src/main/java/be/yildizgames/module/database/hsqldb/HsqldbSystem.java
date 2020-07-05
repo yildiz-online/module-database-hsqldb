@@ -42,15 +42,19 @@ public class HsqldbSystem extends BaseDatabaseSystem {
 
     private final DriverProvider driver = JDBCDriver::new;
 
-    private HsqldbSystem() {
-        super("jdbc:hsqldb:file:${0};allow_empty_batch=true;hsqldb.write_delay=false;shutdown=true");
+    private HsqldbSystem(String urlParams) {
+        super("jdbc:hsqldb:file:${0};" + urlParams);
     }
 
     public static void support() {
+        support("allow_empty_batch=true;hsqldb.write_delay=false;shutdown=true");
+    }
+
+    public static void support(String urlParams) {
         Logger databaseLogger = Logger.getLogger("hsqldb.db");
         databaseLogger.setUseParentHandlers(false);
         databaseLogger.setLevel(Level.WARNING);
-        DatabaseConnectionProviderFactory.getInstance().addSystem(KEY, new HsqldbSystem());
+        DatabaseConnectionProviderFactory.getInstance().addSystem(KEY, new HsqldbSystem(urlParams));
     }
 
     @Override
