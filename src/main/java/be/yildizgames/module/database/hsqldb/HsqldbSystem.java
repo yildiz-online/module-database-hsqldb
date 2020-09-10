@@ -43,7 +43,7 @@ public class HsqldbSystem extends BaseDatabaseSystem {
     private final DriverProvider driver = JDBCDriver::new;
 
     private HsqldbSystem(String urlParams) {
-        super("jdbc:hsqldb:file:${0};" + urlParams);
+        super("jdbc:hsqldb:file:{0};" + urlParams);
     }
 
     public static void support() {
