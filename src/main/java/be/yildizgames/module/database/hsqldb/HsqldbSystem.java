@@ -28,6 +28,7 @@ import be.yildizgames.module.database.BaseDatabaseSystem;
 import be.yildizgames.module.database.DatabaseConnectionProviderFactory;
 import be.yildizgames.module.database.DriverProvider;
 import be.yildizgames.module.database.QueryBuilder;
+import be.yildizgames.module.database.TableSchema;
 import org.hsqldb.jdbc.JDBCDriver;
 
 import java.util.logging.Level;
@@ -56,8 +57,8 @@ public class HsqldbSystem extends BaseDatabaseSystem {
 
     /**
      * Set a custom key to be able to run multiple configuration at the same time when usinb several database
-     * @param key
-     * @param urlParams
+     * @param key Unique key.
+     * @param urlParams Associated parameters.
      */
     public static void support(String key, String urlParams) {
         Logger databaseLogger = Logger.getLogger("hsqldb.db");
@@ -77,7 +78,7 @@ public class HsqldbSystem extends BaseDatabaseSystem {
     }
 
     @Override
-    public final QueryBuilder createBuilder(String table) {
+    public final QueryBuilder createBuilder(TableSchema table) {
         return new HsqldbQueryBuilder(table);
     }
 

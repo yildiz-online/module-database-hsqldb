@@ -24,6 +24,7 @@
 package be.yildizgames.module.database.hsqldb;
 
 import be.yildizgames.module.database.QueryBuilder;
+import be.yildizgames.module.database.TableSchema;
 
 import java.util.StringJoiner;
 
@@ -32,20 +33,15 @@ import java.util.StringJoiner;
   */
  public class HsqldbQueryBuilder extends QueryBuilder {
 
-     public HsqldbQueryBuilder(String table) {
+     public HsqldbQueryBuilder(TableSchema table) {
          super(table);
      }
 
      @Override
     public QueryBuilder selectAllFrom() {
-        this.append("SELECT * FROM " + table + " ");
+        this.append("SELECT * FROM " + table.getTableName() + " ");
         return this;
     }
-
-     @Override
-     public QueryBuilder selectAllFrom(String schema) {
-         return this.selectAllFrom("\"" + schema + "\"." + table);
-     }
 
      @Override
     public QueryBuilder limit(int number) {
@@ -55,7 +51,7 @@ import java.util.StringJoiner;
 
      @Override
      public QueryBuilder merge(String id, String... columns) {
-        this.append("MERGE INTO " + table + " USING (VALUES(" + buildMergeParams(columns.length + 1) + ")) AS vals(" + id + ", " + buildMergeColums(columns) + ") ON (" + table + "." + id + " = vals." + id
+        this.append("MERGE INTO " + table.getTableName() + " USING (VALUES(" + buildMergeParams(columns.length + 1) + ")) AS vals(" + id + ", " + buildMergeColums(columns) + ") ON (" + table + "." + id + " = vals." + id
                  + ") WHEN MATCHED THEN UPDATE SET " + buildMergeMatched(columns)
                  + " WHEN NOT MATCHED THEN INSERT VALUES (vals." + id + "," + buildMergeNotMatched(columns) + ");");
          return this;

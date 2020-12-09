@@ -28,6 +28,7 @@ import be.yildizgames.module.database.BaseDatabaseSystem;
 import be.yildizgames.module.database.DatabaseConnectionProviderFactory;
 import be.yildizgames.module.database.DriverProvider;
 import be.yildizgames.module.database.QueryBuilder;
+import be.yildizgames.module.database.TableSchema;
 import org.hsqldb.jdbc.JDBCDriver;
 
 /**
@@ -58,7 +59,7 @@ public class HsqldbMemorySystem extends BaseDatabaseSystem {
     }
 
     @Override
-    public final QueryBuilder createBuilder(String table) {
+    public final QueryBuilder createBuilder(TableSchema table) {
         return new HsqldbQueryBuilder(table);
     }
 
