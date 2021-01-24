@@ -22,7 +22,7 @@
  *
  */
 
-module be.yildizgames.module.database.hsqldb {
+open module be.yildizgames.module.database.hsqldb {
     requires java.sql;
 
     requires be.yildizgames.module.database;
