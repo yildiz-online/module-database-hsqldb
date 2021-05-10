@@ -26,9 +26,7 @@
  import be.yildizgames.module.database.QueryBuilder;
  import be.yildizgames.module.database.TableSchema;
 
- import java.util.Arrays;
  import java.util.StringJoiner;
- import java.util.stream.Collectors;
 
  /**
   * @author Grégory Van den Borre
@@ -47,8 +45,7 @@
 
      @Override
      public QueryBuilder select(String... columns) {
-         var c = Arrays.stream(columns)
-                 .collect(Collectors.joining(", "));
+         var c = String.join(", ", columns);
          this.append("SELECT " + c + " FROM " + table.getTableName() + " ");
          return this;
      }
