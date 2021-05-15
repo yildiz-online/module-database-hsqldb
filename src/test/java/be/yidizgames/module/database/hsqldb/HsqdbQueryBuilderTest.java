@@ -33,5 +33,11 @@ class HsqdbQueryBuilderTest {
             Assertions.assertEquals("SELECT test, t2 FROM SelectHF", builder.select("test", "t2").build());
         }
 
+        @Test
+        void uuid() {
+            var builder = new HsqldbQueryBuilder(TableSchema.createWithoutId("SelectHF", TableSchemaColumn.uuid("test").notNull()));
+            Assertions.assertEquals("SELECT test, t2 FROM SelectHF", builder.select("test", "t2").build());
+        }
+
     }
 }
