@@ -30,7 +30,6 @@ open module be.yildizgames.module.database.hsqldb {
     requires org.hsqldb;
 
     exports be.yildizgames.module.database.hsqldb;
-    exports be.yildizgames.module.database.hsqldb.query;
 
     provides be.yildizgames.module.database.DatabaseSystemRegisterer with be.yildizgames.module.database.hsqldb.HsqldbSystemRegisterer;
 }
