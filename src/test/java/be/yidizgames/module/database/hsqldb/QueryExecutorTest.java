@@ -14,9 +14,9 @@ package be.yidizgames.module.database.hsqldb;
 
 import be.yildizgames.module.database.DatabaseConnectionProviderFactory;
 import be.yildizgames.module.database.DbProperties;
-import be.yildizgames.module.database.QueryExecutor;
-import be.yildizgames.module.database.TableSchema;
-import be.yildizgames.module.database.TableSchemaColumn;
+import be.yildizgames.module.database.query.QueryExecutor;
+import be.yildizgames.module.database.query.TableSchema;
+import be.yildizgames.module.database.query.TableSchemaColumn;
 import be.yildizgames.module.database.hsqldb.HsqldbSystem;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
@@ -78,22 +78,23 @@ class QueryExecutorTest {
                 }
             });
             var executor = new QueryExecutor(provider);
-            executor.createTableIfNotExists(TableSchema.createWithoutId("test", TableSchemaColumn.uuid("uuid")));
+            var table = TableSchema.createWithoutId("test", TableSchemaColumn.uuid("uuid"));
+            executor.createTableIfNotExists(table);
             var uuid = UUID.randomUUID();
             try(var c = provider.getConnection(); var p = c.prepareStatement("insert into test values(?)")) {
                 p.setObject(1, uuid);
                 p.execute();
-            } catch (SQLException throwables) {
-                throw new IllegalStateException(throwables);
+            } catch (SQLException e) {
+                throw new IllegalStateException(e);
             }
             try(var c = provider.getConnection(); var p = c.prepareStatement("select * from test")) {
                 var r = p.executeQuery();
                 r.next();
                 Assertions.assertEquals(uuid.toString(), r.getObject(1).toString());
-            } catch (SQLException throwables) {
-                throw new IllegalStateException(throwables);
+            } catch (SQLException e) {
+                throw new IllegalStateException(e);
             }
-            executor.dropTables("test");
+            executor.dropTables(table);
         }
 
     }
