@@ -49,12 +49,16 @@ public class HsqldbSystem extends BaseDatabaseSystem {
         support("allow_empty_batch=true;hsqldb.write_delay=false;shutdown=true");
     }
 
+    public static void supportCompactShutdown() {
+        support("allow_empty_batch=true;hsqldb.write_delay=false");
+    }
+
     public static void support(String urlParams) {
         support(KEY, urlParams);
     }
 
     /**
-     * Set a custom key to be able to run multiple configuration at the same time when usinb several database
+     * Set a custom key to be able to run multiple configuration at the same time when using several database
      * @param key Unique key.
      * @param urlParams Associated parameters.
      */
