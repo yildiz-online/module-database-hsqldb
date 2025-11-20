@@ -30,6 +30,7 @@ import be.yildizgames.module.database.DriverProvider;
 import org.hsqldb.jdbc.JDBCDriver;
 
 /**
+ * Memory Hsqldb system.
  * @author Grégory Van den Borre
  */
 public class HsqldbMemorySystem extends BaseDatabaseSystem {

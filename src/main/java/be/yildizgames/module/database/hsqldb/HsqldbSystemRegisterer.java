@@ -27,6 +27,7 @@ package be.yildizgames.module.database.hsqldb;
 import be.yildizgames.module.database.DatabaseSystemRegisterer;
 
 /**
+ * Register the database system.
  * @author Grégory Van den Borre
  */
 public class HsqldbSystemRegisterer implements DatabaseSystemRegisterer {

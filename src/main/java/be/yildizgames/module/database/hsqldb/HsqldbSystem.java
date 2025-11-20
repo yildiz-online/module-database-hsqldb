@@ -33,6 +33,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * File Hsqldb system.
  * @author Grégory Van den Borre
  */
 public class HsqldbSystem extends BaseDatabaseSystem {
